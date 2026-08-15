@@ -12,6 +12,6 @@ private:
 public:
     void add(std::string symbol, double value);
     // a function that adds stocks ex stock.add("apple",190) [symbol and val]
-    Stock getStock(std::string symbol);
+    Stock &getStock(std::string symbol);
     void listStocks();
 };
