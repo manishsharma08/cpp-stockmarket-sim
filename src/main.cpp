@@ -2,31 +2,57 @@
 #include "../include/stock.h"
 #include "../include/portfolio.h"
 #include "../include/market.h"
+#include <sstream>
 using namespace std;
 
-int main()
-{
-    /*Stock apple("AAPL", 190.0);
-    cout << apple.getsymbol() << endl;
-    cout << apple.getvalue() << endl;
-    apple.setprice(195.50);
-    cout << apple.getvalue();
-    return 0;*/
-
-    Market market;
-    market.add("TSLA", 184);
-    market.add("SMSUNG", 177.9);
-    market.add("NVDIA", 196);
-    /*market.listStocks();
-    Stock &t = market.getStock("TSLA");
-    t.setprice(999);
-    cout << t.getsymbol() << " " << t.getvalue();*/
+int main(){
 
     Portfolio portfolio(10000);
-    portfolio.buyShare("TSLA",2,market);
-    portfolio.viewPortfolio(market);
-    portfolio.sellShare("TSLA",1,market);
-    portfolio.viewPortfolio(market);
+    Market market;
+    market.add("AAPL", 190.0);
+    market.add("TSLA", 250.0);
+    market.add("GOOG", 165.0);
+// making a full proper fleged working main
+while(true){
+    std::cout << "> ";
+    std::string line;
+    std::getline(std::cin,line);  // asks user for a whole line ex:- buy AAPL 10
 
+    std::stringstream ss(line);
+    std::string command; // this is where each word is stored
+    std::string symbol; // stores the symbol
+    int quantity;
+
+    ss >> command;
+
+    if(command == "quit"){
+        break;
+    }else if(command == "buy"){
+        
+        ss >> symbol >> quantity; // only pulled here since "buy" is the only command that needs a symbol/quantity
+        bool success = portfolio.buyShare(symbol,quantity,market);
+        if(success){
+            std::cout << "Bought " << quantity << " shares of " << symbol << std::endl;
+        }else{
+            std::cout << "Purchase failed ----- insufficent funds." << std::endl;
+        }
+        
+    }else if(command == "sell"){
+        ss >> symbol >> quantity;
+        bool success = portfolio.sellShare(symbol,quantity,market);
+        if(success){
+            std::cout << "Sold " << quantity << " shares of " << symbol << std::endl;
+        }else{
+            std::cout << "Transaction failed -- insufficent quantity to sell." << std::endl;
+        }
+    }else if(command == "portfolio"){
+        portfolio.viewPortfolio(market);
+    }
+    else if(command == "market"){
+        market.listStocks();
+    }else{
+        std::cout << "Unknown command" << std::endl;
+    }
+}
 
 }
