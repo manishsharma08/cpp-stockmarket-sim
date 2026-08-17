@@ -50,6 +50,8 @@ while(true){
     }
     else if(command == "market"){
         market.listStocks();
+    }else if(command == "history"){
+        portfolio.printHistory();
     }else{
         std::cout << "Unknown command" << std::endl;
     }
