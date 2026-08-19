@@ -14,4 +14,5 @@ public:
     // a function that adds stocks ex stock.add("apple",190) [symbol and val]
     Stock &getStock(std::string symbol);
     void listStocks();
+    void tick(); // random values
 };

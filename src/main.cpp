@@ -4,10 +4,15 @@
 #include "../include/market.h"
 #include "../include/limitorder.h"
 #include "../include/marketorder.h"
+#include <ctime>
+#include <cstdlib>
 #include <sstream>
 using namespace std;
 
+
+
 int main(){
+    srand(time(0));
 
     Portfolio portfolio(10000);
     Market market;
@@ -66,7 +71,11 @@ while(true){
         market.listStocks();
     }else if(command == "history"){
         portfolio.printHistory();
-    }else{
+    }else if(command == "tick"){
+        market.tick();
+        market.listStocks();
+    }
+        else{
         std::cout << "Unknown command" << std::endl;
     }
 

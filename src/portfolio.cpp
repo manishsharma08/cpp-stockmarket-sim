@@ -29,15 +29,17 @@
         double cost = price*quantity;
         //check if user has enough shares to sell
 
-        if(holdings[symbol] >= quantity){ // does the user has enough stock to sell (say they have 3 stock and are trying to sell 10)
-            holdings[symbol] -= quantity; // if they do decrease the stock quantity
-            cash += cost; // give them their money
-             Transaction t(symbol , price , quantity , TransactionType::SELL); // making transaction object
-            history.push_back(t); // putting the object in the vectory history
-            return true;
-        }else{
-            return false; 
+        auto it = holdings.find(symbol); // seaches holdings for a key matching symbol
+        if(it == holdings.end() || it->second < quantity){ // checks if theres nothing in the holdings or if the stock theyre trying to sell less than quan
+            return false;
         }
+        it->second -= quantity;
+        cash += cost; // give them their money
+        Transaction t(symbol , price , quantity , TransactionType::SELL); // making transaction object
+        history.push_back(t); // putting the object in the vectory history
+        return true;
+
+    
 
     }
 
