@@ -2,6 +2,8 @@
 #include "../include/stock.h"
 #include "../include/portfolio.h"
 #include "../include/market.h"
+#include "../include/limitorder.h"
+#include "../include/marketorder.h"
 #include <sstream>
 using namespace std;
 
@@ -12,6 +14,18 @@ int main(){
     market.add("AAPL", 190.0);
     market.add("TSLA", 250.0);
     market.add("GOOG", 165.0);
+
+
+    //test
+
+    Order* order1 = new MarketOrder("AAPL",5,OrderType::BUY);
+    order1->execute(portfolio,market);
+
+    Order* order2 = new LimitOrder("TSLA",2,OrderType::SELL,100);
+    order2->execute(portfolio,market);
+
+    portfolio.viewPortfolio(market);
+
 // making a full proper fleged working main
 while(true){
     std::cout << "> ";
@@ -55,6 +69,15 @@ while(true){
     }else{
         std::cout << "Unknown command" << std::endl;
     }
+
+
+
+    /**/
+
+
 }
+
+
+
 
 }
