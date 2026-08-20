@@ -66,3 +66,6 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Portfolio save file (runtime data, not source code)
+portfolio.txt
