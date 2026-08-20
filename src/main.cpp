@@ -74,6 +74,16 @@ while(true){
     }else if(command == "tick"){
         market.tick();
         market.listStocks();
+    }else if(command == "save"){
+        bool success = portfolio.saveTofile();
+        if(success){
+            std::cout << "File saved !";
+        }
+    }else if(command == "load"){
+        bool success = portfolio.loadFromfile();
+        if(success){
+            std::cout << "File loaded !";
+        }
     }
         else{
         std::cout << "Unknown command" << std::endl;
