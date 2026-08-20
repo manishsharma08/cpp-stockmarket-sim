@@ -47,7 +47,7 @@ while(true){
     if(command == "quit"){
         break;
     }else if(command == "buy"){
-        
+        try{ // wraps the risky call - buyshare might internally throw(show error) is there no valid symbol
         ss >> symbol >> quantity; // only pulled here since "buy" is the only command that needs a symbol/quantity
         bool success = portfolio.buyShare(symbol,quantity,market);
         if(success){
@@ -55,15 +55,24 @@ while(true){
         }else{
             std::cout << "Purchase failed ----- insufficent funds." << std::endl;
         }
+    } catch (const std::exception& e){
+        std::cout << "Error" << e.what() << std::endl; 
+        // this block only runs if something inside try{} goes wrong
+        // e holds the exception object. e.what() returns error message we wrote in throw
+    }
         
     }else if(command == "sell"){
         ss >> symbol >> quantity;
+        try{
         bool success = portfolio.sellShare(symbol,quantity,market);
         if(success){
             std::cout << "Sold " << quantity << " shares of " << symbol << std::endl;
         }else{
             std::cout << "Transaction failed -- insufficent quantity to sell." << std::endl;
         }
+    } catch(const std::exception& p){
+        std::cout << "Error" << p.what() << std::endl;
+    }
     }else if(command == "portfolio"){
         portfolio.viewPortfolio(market);
     }
