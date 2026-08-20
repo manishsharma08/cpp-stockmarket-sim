@@ -1,5 +1,6 @@
     #include "../include/portfolio.h"
     #include <iostream>
+    #include <fstream>
 
     Portfolio::Portfolio(double startingCash) : cash(startingCash){
     }; //constructor for portfolio used for accesing cash so there is no garbage value
@@ -70,4 +71,35 @@
             std::cout << t.getQuantity() << " ";
             std::cout << t.getValue() << std::endl;
         }
+    }
+
+    bool Portfolio::saveTofile(){  // function for saving all the transactions n stuff
+        std::ofstream outFile("portfolio.txt");
+        outFile << cash << std::endl; // prints cash in the file
+        for(const auto& pair: holdings){ //loops through holdings (map)
+            std::string symbol = pair.first; // stores the stock name in symbol
+            int quantity = pair.second; // stores values in quantity
+            outFile << symbol << " " << quantity << std::endl; // prints both in the file
+        }
+        return true;
+         
+
+         
+
+    }
+
+    bool Portfolio::loadFromfile(){
+        std::ifstream inFile("portfolio.txt"); // opens file for reading
+        if(!inFile){
+            return false; // file doesnt exist yet - nothing to load.
+        }
+        inFile >> cash; // reads first line (cash)
+        std::string symbol;
+        int quantity;
+
+        while(inFile >> symbol >> quantity){// keep reading symbol+quantity pairs until file runs out
+            holdings[symbol] = quantity;
+        } 
+        return true;
+
     }

@@ -77,12 +77,12 @@ while(true){
     }else if(command == "save"){
         bool success = portfolio.saveTofile();
         if(success){
-            std::cout << "File saved !";
+            std::cout << "File saved !" << std::endl;
         }
     }else if(command == "load"){
         bool success = portfolio.loadFromfile();
         if(success){
-            std::cout << "File loaded !";
+            std::cout << "File loaded !" << std::endl;
         }
     }
         else{

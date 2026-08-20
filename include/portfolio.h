@@ -4,6 +4,8 @@
 #include "../include/market.h"
 #include "../include/transaction.h"
 #include <vector>
+#include <fstream>
+
 
 
 
@@ -19,6 +21,9 @@ public:
     void printHistory() const;
     //prints history of transactions
     Portfolio(double startingCash); // constructor - sets up a new portfolio with a starting amount of cash
+
+    bool saveTofile(); // used for saving transaction so whenever code is ran again it doesnt reset
+    bool loadFromfile(); // used for loading the saves.
 private:
     double cash;                                   // value of stock
     std::unordered_map<std::string, int> holdings; // dictionary so show number of shares
