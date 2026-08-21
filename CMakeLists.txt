@@ -16,3 +16,14 @@ add_executable(stock_sim
     src/MarketOrder.cpp 
     src/LimitOrder.cpp
 )
+
+add_executable(run_tests
+    tests/test_portfolio.cpp
+    src/Stock.cpp
+    src/Market.cpp
+    src/Portfolio.cpp
+    src/Transaction.cpp
+    src/Order.cpp
+    src/MarketOrder.cpp
+    src/LimitOrder.cpp
+)
