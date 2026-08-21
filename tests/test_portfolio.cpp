@@ -13,5 +13,9 @@ int main() {
     assert(success == true);
 
     std::cout << "All tests passed!" << std::endl;
+    // Test 2: buying fails if not enough cash
+    Portfolio p2(50.0);   // very little cash
+    bool shouldFail = p2.buyShare("AAPL", 5, market);   // costs 500, way more than 50
+    assert(shouldFail == false);
     return 0;
 }
